@@ -1,6 +1,6 @@
 # Ponto de retomada — EpidemiR
 
-**Última atualização:** 23/11/2026 (fim de sessão) ·
+**Última atualização:** 24/11/2026 (renomeação + push) ·
 **Próxima sessão:** comece por este bloco ↓
 
 ---
@@ -8,7 +8,8 @@
 ## 🟢 ESTADO ATUAL — retomar aqui
 
 **Repo público:** https://github.com/rubensvieirabda/EpidemiR
-**Branch padrão:** `develop` · **Working tree:** limpo · **Último commit:** `56e92ef`
+**Branch padrão:** `develop` · **Working tree:** limpo · **Sincronizada com:** `origin/develop`
+**Último commit:** confirme com `git log -1` (renomeação `ffdbff6` + atualização deste arquivo)
 
 ### Já pronto
 
@@ -22,7 +23,7 @@
 - Nenhum segredo versionado; `.Renviron` apagado e substituído por
   `.Renviron.example`.
 
-### Ainda pendente (para amanhã)
+### Ainda pendente
 
 1. **Credenciais reais** — `.Renviron` precisa ser recriado
    (`Copy-Item .Renviron.example .Renviron`) + `gcloud auth application-default login`
@@ -32,7 +33,7 @@
    Hoje o guia `docs/06` já responde "onde buscar", mas não há código.
 4. **Rotacionar o ID antigo** vazado no Google Cloud.
 
-### Checklist de amanhã (copie e marque)
+### Checklist de retomada (copie e marque)
 
 ```
 [ ] Abrir info.md (este arquivo) e README.md
@@ -204,7 +205,7 @@ Criei também `tools/verificar_csv.R` (testado aqui com os CSVs gerados) para vo
 - Branch `main`, commit inicial `9144c87`, 30 arquivos.
 - Removidos antes de publicar: `BaseMap.R` (não compilava + ID exposto),
   `.Rhistory`, `.Renviron`, CSVs/PNGs/RDS gerados.
-- **`.Renviron` foi apagado**: recrie amanhã com
+- **`.Renviron` foi apagado**: recrie na próxima sessão com
   `Copy-Item .Renviron.example .Renviron` e preencha seu ID de projeto.
 - **Importante**: o ID antigo vazou. Revogue/rotacione o projeto no Google Cloud.
 
@@ -248,3 +249,22 @@ git status
 - [ ] Seguir o checklist de [`docs/05-primeira-uso.md`](docs/05-primeira-uso.md)
 - [ ] Depois, decidir se implementamos `R/07_raiva.R` no pipeline
 - [ ] Se a lista de categorias veio de outro agravo (dengue/zika), me avisar
+
+---
+
+## Atualização de 24/11/2026 — renomeação para EpidemiR
+
+- Projeto renomeado de **MapaGenBase** para **EpidemiR** (pasta local, repo
+  GitHub e `MapaGenBase.Rproj` → `EpidemiR.Rproj`).
+- Atualizados `R/00_config.R` (detecção da raiz pelo `.Rproj`), `run_analysis.R`,
+  `R/05_export.R`, `tests/test_pipeline.R`, `README.md` e `docs/01`, `03` a `05`.
+- Instruções de início conferidas em
+  [`docs/05-primeira-uso.md`](docs/05-primeira-uso.md) — checklist completo do
+  clone ao relatório, com link no topo do `README.md`.
+- Validação: `Rscript tests/test_pipeline.R` → **23 testes passaram**, sem
+  gerar arquivos versionados novos.
+- Commit `ffdbff6` (`Docs: renomear projeto de MapaGenBase para EpidemiR`)
+  enviado com `git push origin develop`, seguido do commit que atualizou este
+  ponto de retomada. `develop` == `origin/develop`, tree limpa.
+- Única menção ao nome antigo mantida de propósito: nota histórica na seção
+  "Publicação no GitHub" ("renomeado de MapaGenBase").
