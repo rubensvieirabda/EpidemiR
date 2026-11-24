@@ -179,3 +179,28 @@ git push
 git status
 # conferir que .Renviron / .Rhistory / *.csv / *.json de credencial NAO aparecem
 ```
+
+---
+
+## Atualização de 23/11/2026 (segunda parte)
+
+- Criada a branch **`develop`**, enviada ao GitHub e tornada **default**.
+  O `main` continua existindo como referência do commit inicial.
+- Novos documentos:
+  - [`docs/05-primeira-uso.md`](docs/05-primeira-uso.md) — checklist do clone
+    ao primeiro relatório (renv, mock, credenciais, termos, execução).
+  - [`docs/06-dados-raiva.md`](docs/06-dados-raiva.md) — onde buscar raiva,
+    campos exatos do SINAN, espécies e regiões de maior impacto.
+- **Achado importante sobre raiva:** a ficha de Raiva Humana do SINAN **não
+  tem** campos "curado com/sem sequela". O termo oficial para "falso positivo"
+  é **Descartado** (`classi_fin = 2`); para "recuperado", o termo adequado é
+  **sobrevivente** — só 2 casos em toda a história do Brasil. Ver §2 do doc.
+- Números oficiais (MS, jun/2026): 54 casos em 2010–2026; morcegos lideram
+  (23), depois primatas (12), cães (10), felinos (5), raposas (2). Nordeste e
+  Norte concentram os impactos; último caso canino em 2015 (MS).
+
+### Próximos passos (atualizados)
+
+- [ ] Seguir o checklist de [`docs/05-primeira-uso.md`](docs/05-primeira-uso.md)
+- [ ] Depois, decidir se implementamos `R/07_raiva.R` no pipeline
+- [ ] Se a lista de categorias veio de outro agravo (dengue/zika), me avisar

@@ -5,9 +5,10 @@ consulta a [Base dos Dados](https://basedosdados.org/) (SIM / SINASC) sobre
 microcefalia, trata os dados, calcula taxas por 100 mil nascidos vivos ajusta
 tendências e gera gráficos + relatório.
 
-> **Retomada:** o ponto em que paramos e o checklist da próxima sessão estão em
-> [`info.md`](info.md). O passo a passo completo está em
-> [`docs/04-guia-de-dados.md`](docs/04-guia-de-dados.md).
+> **Comece aqui:** checklist de primeira utilização em
+> [`docs/05-primeira-uso.md`](docs/05-primeira-uso.md). O guia dos dados de
+> raiva está em [`docs/06-dados-raiva.md`](docs/06-dados-raiva.md). O ponto de
+> retomada das sessões está em [`info.md`](info.md).
 
 O script original da aula (`BaseMap.R`) foi removido: não compilava (blocos
 Markdown dentro de `.R`) e continha um ID de billing exposto. O histórico da
@@ -75,7 +76,9 @@ info.md                 ponto de retomada da sessão de estudos
 | [docs/01-apostila-teorica.md](docs/01-apostila-teorica.md) | Apostila profunda de R (tipos, escopo, tidyverse, SQL, estatística, performance) |
 | [docs/02-roadmap-estudos.md](docs/02-roadmap-estudos.md) | Plano de estudos de 12 semanas |
 | [docs/03-arquitetura-e-uso.md](docs/03-arquitetura-e-uso.md) | Arquitetura, contratos dos módulos, como estender, troubleshooting |
-| [docs/04-guia-de-dados.md](docs/04-guia-de-dados.md) | **Comece aqui**: quais dados buscar, formato, onde colocar, como consumir |
+| [docs/04-guia-de-dados.md](docs/04-guia-de-dados.md) | Dados SIM/SINASC: quais buscar, formato, onde colocar, como consumir |
+| [docs/05-primeira-uso.md](docs/05-primeira-uso.md) | **Comece aqui**: checklist do clone ao primeiro relatório |
+| [docs/06-dados-raiva.md](docs/06-dados-raiva.md) | Onde buscar raiva, campos exatos, animais e regiões de maior impacto |
 
 ## Segurança
 
