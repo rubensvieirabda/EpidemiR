@@ -151,3 +151,31 @@ Criei também `tools/verificar_csv.R` (testado aqui com os CSVs gerados) para vo
 - [ ] Dúvida/erro novo: voltar aqui e colar a mensagem exata
 
 > Referência completa e sempre atualizada: [`docs/04-guia-de-dados.md`](docs/04-guia-de-dados.md).
+
+---
+
+## Publicação no GitHub (feito em 23/11/2026)
+
+- Repo público: **https://github.com/rubensvieirabda/MapaGenBase**
+- Branch `main`, commit inicial `9144c87`, 30 arquivos.
+- Removidos antes de publicar: `BaseMap.R` (não compilava + ID exposto),
+  `.Rhistory`, `.Renviron`, CSVs/PNGs/RDS gerados.
+- **`.Renviron` foi apagado**: recrie amanhã com
+  `Copy-Item .Renviron.example .Renviron` e preencha seu ID de projeto.
+- **Importante**: o ID antigo vazou. Revogue/rotacione o projeto no Google Cloud.
+
+### Como subir mudanças da próxima vez
+
+```powershell
+git status
+git add -A
+git commit -m "descreva o que mudou"
+git push
+```
+
+### Regra de ouro antes de cada push
+
+```powershell
+git status
+# conferir que .Renviron / .Rhistory / *.csv / *.json de credencial NAO aparecem
+```
