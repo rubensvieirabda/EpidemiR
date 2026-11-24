@@ -1,15 +1,59 @@
 # Ponto de retomada — MapaGenBase
 
-**Salvo em:** 23/11/2026 · **Próxima sessão:** retomar pelo checklist no final.
+**Última atualização:** 23/11/2026 (fim de sessão) ·
+**Próxima sessão:** comece por este bloco ↓
 
-## Onde estamos
+---
 
-- Pipeline completo criado e testado em modo `--mock` (23 testes passando).
-- `renv.lock` sincronizado (57 pacotes).
-- Documentação: `docs/00` a `docs/04`. O guia canônico destes passos é
-  [`docs/04-guia-de-dados.md`](docs/04-guia-de-dados.md).
-- **Ainda não fizemos:** credenciais reais do Google Cloud nem consulta ao
-  BigQuery. Tudo até agora foi com dados sintéticos.
+## 🟢 ESTADO ATUAL — retomar aqui
+
+**Repo público:** https://github.com/rubensvieirabda/MapaGenBase
+**Branch padrão:** `develop` · **Working tree:** limpo · **Último commit:** `56e92ef`
+
+### Já pronto
+
+- Pipeline SIM/SINASC completo, 23 testes passando em modo `--mock`.
+- `renv.lock` sincronizado (57 pacotes), `renv::status()` limpo.
+- `develop` é a default; `main` é só referência do commit inicial.
+- Documentação `docs/00` a `docs/06`:
+  - [`04-guia-de-dados.md`](docs/04-guia-de-dados.md) — SIM/SINASC
+  - [`05-primeira-uso.md`](docs/05-primeira-uso.md) — **checklist do clone ao relatório**
+  - [`06-dados-raiva.md`](docs/06-dados-raiva.md) — **raiva: campos, animais, regiões**
+- Nenhum segredo versionado; `.Renviron` apagado e substituído por
+  `.Renviron.example`.
+
+### Ainda pendente (para amanhã)
+
+1. **Credenciais reais** — `.Renviron` precisa ser recriado
+   (`Copy-Item .Renviron.example .Renviron`) + `gcloud auth application-default login`
+   + aceitar termos no site da Base dos Dados.
+2. **Consulta real ao BigQuery** — nada foi consultado ainda; tudo foi mock.
+3. **Decisão sobre raiva** — implementar ou não `R/07_raiva.R` no pipeline.
+   Hoje o guia `docs/06` já responde "onde buscar", mas não há código.
+4. **Rotacionar o ID antigo** vazado no Google Cloud.
+
+### Checklist de amanhã (copie e marque)
+
+```
+[ ] Abrir info.md (este arquivo) e README.md
+[ ] Seguir docs/05-primeira-uso.md do passo 1 ao 7
+[ ] Rscript run_analysis.R --mock  (confere que nada quebrou)
+[ ] Copiar .Renviron.example -> .Renviron e preencher ID do projeto
+[ ] gcloud auth application-default login
+[ ] Aceitar termos SIM + SINASC no site da Base dos Dados
+[ ] Rscript run_analysis.R  (conferir: relatório NÃO pode dizer MODO MOCK)
+[ ] Decidir: implementar R/07_raiva.R?
+[ ] Se a lista de categorias era de dengue/zika e não raiva → me avisar
+```
+
+> Se aparecer erro novo, cole a **mensagem exata** aqui e no chat.
+
+---
+
+## Histórico abaixo (referência)
+
+As seções seguintes mantêm o passo a passo original, notas de publicação e
+a pesquisa de raiva em detalhe. O conteúdo canônico está nos `docs/`.
 
 ---
 
