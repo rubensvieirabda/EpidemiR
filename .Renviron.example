@@ -1,0 +1,5 @@
+# Copie este arquivo para .Renviron e preencha com o ID do SEU projeto Google Cloud.
+# .Renviron esta no .gitignore: nunca commite o arquivo preenchido.
+# O ID fica disponivel como Sys.getenv("GCP_BILLING_ID") no R.
+
+GCP_BILLING_ID=seu-projeto-aqui

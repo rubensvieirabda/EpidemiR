@@ -1,0 +1,2 @@
+# ggplot2/geobr sao recursos opcionais; nao devem entrar no lockfile.
+R/06_optional_maps.R

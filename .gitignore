@@ -1,0 +1,27 @@
+# RStudio / R
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# Segredos e credenciais (nunca versionar)
+.Renviron
+.env
+.env.*
+credentials*.json
+*credentials*.json
+service-account*.json
+*service_account*.json
+*.pem
+*.key
+.gcloud/
+
+# Dados gerados pelo pipeline
+data/raw/*
+data/processed/*
+data/reports/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/reports/.gitkeep
+*.csv
+*.rds
