@@ -3,6 +3,7 @@
 #   Rscript run_analysis.R --mock
 #   Rscript run_analysis.R --source=sinasc --years=2014-2019
 #   Rscript run_analysis.R --no-cache
+#   Rscript run_analysis.R                 # usa cache local ou cai para mock
 
 usage <- function() {
   paste(
@@ -14,6 +15,7 @@ usage <- function() {
     "  --source=sinasc   nascidos vivos com anomalia",
     "  --years=2014-2019 intervalo de anos",
     "  --no-cache        ignora CSVs em data/raw e refaz a consulta",
+    "                    (sem chave, cai para mock com aviso)",
     "  -h, --help        mostra esta ajuda",
     sep = "\n"
   )
@@ -66,9 +68,11 @@ cfg <- default_config(source = cli$source,
                       years = cli$years,
                       use_cache = cli$use_cache,
                       mock = cli$mock)
+cfg <- resolve_data_source(cfg)
 
-log_info("Iniciando pipeline | source=%s | anos=%s | mock=%s",
-         cfg$source, paste(range(cfg$years), collapse = "-"), cfg$mock)
+log_info("Iniciando pipeline | source=%s | anos=%s | dados=%s | mock=%s",
+         cfg$source, paste(range(cfg$years), collapse = "-"),
+         cfg$data_mode, cfg$mock)
 t0 <- Sys.time()
 
 raw     <- extract_all(cfg)

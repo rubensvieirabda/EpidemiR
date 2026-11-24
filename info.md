@@ -13,7 +13,9 @@
 
 ### Já pronto
 
-- Pipeline SIM/SINASC completo, 23 testes passando em modo `--mock`.
+- Pipeline SIM/SINASC completo, 30 testes passando sem dependências externas.
+- `GCP_BILLING_ID` opcional: cache local primeiro; sem chave e sem cache,
+  o pipeline avisa e cai para mock (motivo registrado no relatório).
 - `renv.lock` sincronizado (57 pacotes), `renv::status()` limpo.
 - `develop` é a default; `main` é só referência do commit inicial.
 - Documentação `docs/00` a `docs/06`:
@@ -25,8 +27,9 @@
 
 ### Ainda pendente
 
-1. **Credenciais reais** — `.Renviron` precisa ser recriado
-   (`Copy-Item .Renviron.example .Renviron`) + `gcloud auth application-default login`
+1. **Credenciais reais** (opcional, só para consultar o BigQuery) — `.Renviron`
+   precisa ser recriado (`Copy-Item .Renviron.example .Renviron`) +
+   instalar o `gcloud` (hoje não está no PATH) + `gcloud auth application-default login`
    + aceitar termos no site da Base dos Dados.
 2. **Consulta real ao BigQuery** — nada foi consultado ainda; tudo foi mock.
 3. **Decisão sobre raiva** — implementar ou não `R/07_raiva.R` no pipeline.
@@ -261,10 +264,33 @@ git status
 - Instruções de início conferidas em
   [`docs/05-primeira-uso.md`](docs/05-primeira-uso.md) — checklist completo do
   clone ao relatório, com link no topo do `README.md`.
-- Validação: `Rscript tests/test_pipeline.R` → **23 testes passaram**, sem
+- Validação: `Rscript tests/test_pipeline.R` → **30 testes passaram**, sem
   gerar arquivos versionados novos.
 - Commit `ffdbff6` (`Docs: renomear projeto de MapaGenBase para EpidemiR`)
   enviado com `git push origin develop`, seguido do commit que atualizou este
   ponto de retomada. `develop` == `origin/develop`, tree limpa.
 - Única menção ao nome antigo mantida de propósito: nota histórica na seção
   "Publicação no GitHub" ("renomeado de MapaGenBase").
+
+---
+
+## Atualização de 24/11/2026 — chave GCP opcional
+
+- `GCP_BILLING_ID` deixou de ser obrigatório. A decisão agora está em
+  `resolve_data_source()` (`R/01_extract.R`), executada por `run_analysis.R`:
+  1. `--mock` → dados sintéticos;
+  2. cache completo em `data/raw/` (`cases_sim.csv` + `births.csv`) → lê do
+     disco, sem precisar de chave;
+  3. sem chave e sem cache (ou com `--no-cache`) → dois avisos `ATENCAO`,
+     `cfg$mock = TRUE` e pipeline termina normalmente;
+  4. com chave → consulta BigQuery como antes.
+- O relatório passa a incluir "Motivo do modo mock" quando o fallback acontece,
+  e o log mostra `dados=mock|cache|bigquery`.
+- `log_warn()` criado em `R/utils.R`; `read_sql_cached()` agora diz
+  "Sem GCP_BILLING_ID e sem cache..." em vez de só "vazio".
+- Teste real feito aqui: `Rscript run_analysis.R` sem `.Renviron` e sem CSVs
+  terminou em ~2s com `=== RESUMO ===` (35.228 casos mock).
+- Testes automatizados: **30 checagens** (7 novas para cache/chave/fallback),
+  todas passando. README e `docs/00`, `03`, `04`, `05` atualizados.
+- A máquina local **não tem `gcloud` no PATH**: para dados reais ainda é preciso
+  instalá-lo, autenticar e aceitar os termos dos datasets.

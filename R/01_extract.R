@@ -46,6 +46,54 @@ ORDER BY sigla_uf, ano",
   )
 }
 
+#' Caminhos dos dois CSVs de cache usados pelo pipeline.
+.cache_paths <- function(cfg) {
+  c(
+    cases = file.path(cfg$dirs$raw, sprintf("cases_%s.csv", cfg$source)),
+    births = file.path(cfg$dirs$raw, "births.csv")
+  )
+}
+
+#' Decide a origem dos dados antes de qualquer consulta.
+#'
+#' A chave `GCP_BILLING_ID` e opcional: com cache completo em `data/raw/`
+#' o pipeline le do disco; sem chave e sem cache ele avisa e usa dados mock,
+#' para nao quebrar em cascata. O campo `data_mode` registra a decisao.
+resolve_data_source <- function(cfg) {
+  paths <- .cache_paths(cfg)
+  present <- file.exists(paths)
+  has_cache <- isTRUE(cfg$use_cache) && all(present)
+
+  if (isTRUE(cfg$mock)) {
+    cfg$data_mode <- "mock"
+    return(cfg)
+  }
+
+  if (has_cache) {
+    cfg$data_mode <- "cache"
+    log_info("Cache completo em data/raw; GCP_BILLING_ID nao e necessario.")
+    return(cfg)
+  }
+
+  if (!nzchar(cfg$billing_id %||% "")) {
+    if (isTRUE(cfg$use_cache)) {
+      faltam <- names(paths)[!present]
+      log_warn("GCP_BILLING_ID nao definido e cache incompleto (faltam: %s).",
+               paste(faltam, collapse = ", "))
+    } else {
+      log_warn("GCP_BILLING_ID nao definido e cache desabilitado (--no-cache).")
+    }
+    log_warn("Continuando em MODO MOCK. Para dados reais, defina a chave no .Renviron ou coloque os CSVs em data/raw/.")
+    cfg$mock <- TRUE
+    cfg$mock_reason <- "sem GCP_BILLING_ID e sem cache completo"
+    cfg$data_mode <- "mock"
+    return(cfg)
+  }
+
+  cfg$data_mode <- "bigquery"
+  cfg
+}
+
 #' Executa uma consulta com cache em disco e mensagens de erro contexto.
 #'
 #' @param query     SQL ja validada.
@@ -63,8 +111,10 @@ read_sql_cached <- function(query, cache_path, label, cfg) {
 
   abort_if(!requireNamespace("basedosdados", quietly = TRUE),
            "Pacote 'basedosdados' nao instalado. Rode install.packages('basedosdados').")
-  abort_if(!nzchar(cfg$billing_id),
-           "GCP_BILLING_ID vazio. Defina no .Renviron: GCP_BILLING_ID=SEU_PROJETO")
+  abort_if(!nzchar(cfg$billing_id %||% ""),
+           sprintf(paste0("Sem GCP_BILLING_ID e sem cache para '%s'. ",
+                          "Defina a chave no .Renviron ou coloque o CSV em %s."),
+                   label, cache_path))
 
   log_info("Consultando BigQuery (%s)...", label)
   df <- tryCatch(

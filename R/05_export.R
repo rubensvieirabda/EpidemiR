@@ -41,6 +41,8 @@ write_report_md <- function(stats, cases, trends, paths, cfg) {
             format(Sys.time(), "%d/%m/%Y %H:%M"),
             if (cfg$source == "sim") "SIM/obitos" else "SINASC/nascidos com anomalia",
             if (cfg$mock) ", MODO MOCK" else ""),
+    if (isTRUE(cfg$mock) && nzchar(cfg$mock_reason %||% ""))
+      sprintf("Motivo do modo mock: %s.", cfg$mock_reason) else NULL,
     "",
     "## Numeros gerais",
     "",

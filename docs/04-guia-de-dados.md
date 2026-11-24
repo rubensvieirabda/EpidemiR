@@ -257,13 +257,14 @@ por `ano`/`sigla_uf`, completa a grade 27 UFs × 6 anos e cola nome/região.
 
 | Mensagem | Causa | Solução |
 |---|---|---|
-| `GCP_BILLING_ID vazio` | `.Renviron` ausente ou R não reiniciado | crie o arquivo na raiz e reinicie a sessão |
+| `Continuando em MODO MOCK` | sem chave e sem cache completo | configure `.Renviron` ou coloque os CSVs em `data/raw/` |
+| `Sem GCP_BILLING_ID e sem cache` | `--no-cache` sem credencial | defina a chave ou remova a flag |
 | `Access denied` / `permission denied` | termos do dataset não aceitos | aceite no site da Base dos Dados para o seu projeto |
 | `Could not load default credentials` | Google sem login | `gcloud auth application-default login` |
 | `Cache encontrado` mas dados estranhos | CSV velho/mock | apague o arquivo em `data/raw/` e rode de novo |
 | `colunas obrigatorias: total` | baixou microdados em vez do resultado da SQL | rode a SQL agregada e salve como `cases_sim.csv` |
 | `Falha na consulta ...` com `LIKE` | filtro de CID diferente do esquema | confira `causa_basica` / `anomalia_congenita` no dicionário |
-| `Modo MOCK` no relatório | esqueceu `--mock` | rode sem essa flag |
+| `MODO MOCK` no relatório | usou `--mock`, ou caiu no fallback sem chave/cache | veja a linha "Motivo do modo mock"; configure chave/cache para dados reais |
 
 ---
 

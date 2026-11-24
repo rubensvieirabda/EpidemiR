@@ -49,6 +49,42 @@ check(nrow(raw$cases) == 3L * nrow(UF_LOOKUP), "mock de casos cobre todos os ano
 check(nrow(raw$births) == 3L * nrow(UF_LOOKUP), "mock de nascidos cobre todos os anos/UFs")
 check(all(!is.na(raw$cases$total)), "mock sem NAs")
 
+cat("\n--- Chave opcional e cache local ---\n")
+tmp_raw <- file.path(tempdir(), "epidemir_cache_teste")
+make_dir(tmp_raw)
+paths_teste <- .cache_paths(default_config(dirs = list(raw = tmp_raw)))
+writeLines(c("ano,sigla_uf,total", "2014,PE,10"), paths_teste["cases"])
+writeLines(c("ano,sigla_uf,nascidos", "2014,PE,1000"), paths_teste["births"])
+
+cfg_cache <- suppressMessages(resolve_data_source(
+  default_config(years = 2014:2016, billing_id = "",
+                 dirs = list(raw = tmp_raw))
+))
+check(identical(cfg_cache$data_mode, "cache"), "cache completo dispensa GCP_BILLING_ID")
+check(!cfg_cache$mock, "cache completo nao ativa mock")
+
+cfg_vazio <- file.path(tempdir(), "epidemir_sem_cache")
+cfg_sem_chave <- suppressMessages(resolve_data_source(
+  default_config(years = 2014:2016, billing_id = "",
+                 dirs = list(raw = cfg_vazio))
+))
+check(isTRUE(cfg_sem_chave$mock), "sem chave e sem cache cai para mock")
+check(identical(cfg_sem_chave$data_mode, "mock"), "modo mock registrado na config")
+check(grepl("GCP_BILLING_ID", cfg_sem_chave$mock_reason, fixed = TRUE),
+      "motivo do mock registrado para o relatorio")
+
+cfg_com_chave <- suppressMessages(resolve_data_source(
+  default_config(years = 2014:2016, billing_id = "projeto-teste",
+                 dirs = list(raw = cfg_vazio))
+))
+check(identical(cfg_com_chave$data_mode, "bigquery"), "com chave segue para BigQuery")
+
+cfg_sem_cache_flag <- suppressMessages(resolve_data_source(
+  default_config(years = 2014:2016, billing_id = "", use_cache = FALSE,
+                 dirs = list(raw = tmp_raw))
+))
+check(isTRUE(cfg_sem_cache_flag$mock), "--no-cache sem chave tambem cai para mock")
+
 cat("\n--- Transformacao ---\n")
 cases  <- prepare_cases(raw$cases, cfg)
 births <- prepare_births(raw$births, cfg)

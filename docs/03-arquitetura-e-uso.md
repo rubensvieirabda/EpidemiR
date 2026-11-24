@@ -32,7 +32,7 @@ de `library()` global, nada de variáveis com estado escondido (exceto o
 | `R/04_visualize.R` | gráficos base R (sem dependências extras) |
 | `R/05_export.R` | CSV/RDS + relatório markdown |
 | `R/06_optional_maps.R` | coropletico opcional (ignorado pelo `renv`) |
-| `tests/test_pipeline.R` | 23 checagens offline |
+| `tests/test_pipeline.R` | 30 checagens offline |
 | `tools/verificar_csv.R` | valida um CSV baixado manualmente |
 | `docs/04-guia-de-dados.md` | passo a passo: dados, formato, caminhos, consumo |
 
@@ -41,7 +41,7 @@ de `library()` global, nada de variáveis com estado escondido (exceto o
 ```r
 # Do terminal, na raiz do projeto:
 Rscript run_analysis.R --mock                      # dados sintéticos
-Rscript run_analysis.R                             # SIM real (precisa de billing)
+Rscript run_analysis.R                             # cache local -> BigQuery -> mock (sem chave)
 Rscript run_analysis.R --source=sinasc             # SINASC real
 Rscript run_analysis.R --years=2015-2019           # recorte
 Rscript run_analysis.R --no-cache                  # força nova consulta
@@ -162,7 +162,8 @@ apenas para os testes rodarem hoje sem dependência extra.
 
 | Sintoma | Causa provável | Ação |
 |---|---|---|
-| `GCP_BILLING_ID vazio` | `.Renviron` ausente ou R iniciado fora do projeto | crie `.Renviron` na raiz e reinicie a sessão |
+| `Continuando em MODO MOCK` | sem chave e sem cache completo em `data/raw/` | configure `.Renviron` ou coloque os CSVs na pasta |
+| `Sem GCP_BILLING_ID e sem cache` | consulta forçada (`--no-cache`) sem credencial | defina a chave ou rode sem `--no-cache` |
 | `Falha na consulta ... access denied` | conta sem permissão na tabela | aceite os termos do dataset no site da Base dos Dados |
 | `The project is out-of-sync` | lockfile incompleto | `renv::snapshot()` |
 | Gráfico vazio / estranho | dispositivo vazado de erro anterior | `while (dev.cur() > 1) dev.off()` |

@@ -12,7 +12,7 @@ Este guia leva você de um clone vazio até o primeiro relatório. Feito em
 [ ] 2. Abrir EpidemiR.Rproj no RStudio
 [ ] 3. renv::restore()                       (instala 57 pacotes travados)
 [ ] 4. Rscript run_analysis.R --mock         (valida a máquina, sem internet)
-[ ] 5. Rscript tests/test_pipeline.R         (23 testes, sem rede)
+[ ] 5. Rscript tests/test_pipeline.R         (30 testes, sem rede)
 [ ] 6. Copiar .Renviron.example -> .Renviron e preencher GCP_BILLING_ID
 [ ] 7. Reiniciar o R/RStudio
 [ ] 8. gcloud auth application-default login
@@ -58,10 +58,14 @@ Rscript run_analysis.R --mock
 Rscript tests/test_pipeline.R
 ```
 
-Esperado: `23 testes passaram` e um `=== RESUMO ===` no console. Se isso
+Esperado: `30 testes passaram` e um `=== RESUMO ===` no console. Se isso
 falhar, **pare aqui** — o problema é local, não credencial.
 
-## Passo 5 — Credenciais (só para dados reais)
+Sem `.Renviron` e sem CSVs em `data/raw/`, `Rscript run_analysis.R` ainda
+termina: avisa, usa dados mock e grava o motivo no relatório. A chave só é
+necessária para consultar o BigQuery.
+
+## Passo 5 — Credenciais (opcional, só para consultar o BigQuery)
 
 ```powershell
 Copy-Item .Renviron.example .Renviron

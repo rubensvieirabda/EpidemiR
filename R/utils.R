@@ -9,6 +9,13 @@ log_info <- function(fmt, ...) {
   message("[", format(Sys.time(), "%H:%M:%S"), "] ", sprintf(fmt, ...))
 }
 
+#' Registra um aviso com horario, sem interromper o pipeline.
+#' @param fmt String com placeholders %s/%d (style sprintf).
+#' @param ... Valores para os placeholders.
+log_warn <- function(fmt, ...) {
+  message("[", format(Sys.time(), "%H:%M:%S"), "] ATENCAO: ", sprintf(fmt, ...))
+}
+
 #' Lanca um erro legivel somente quando a condicao for TRUE.
 #' @details Criar um "abort_if" proprio evita repetir `if (...) stop(...)` e
 #'   deixa as validacoes com a mesma voz em todo o projeto.
