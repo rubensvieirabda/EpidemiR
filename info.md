@@ -1,4 +1,4 @@
-# Ponto de retomada — MapaGenBase
+# Ponto de retomada — EpidemiR
 
 **Última atualização:** 23/11/2026 (fim de sessão) ·
 **Próxima sessão:** comece por este bloco ↓
@@ -7,7 +7,7 @@
 
 ## 🟢 ESTADO ATUAL — retomar aqui
 
-**Repo público:** https://github.com/rubensvieirabda/MapaGenBase
+**Repo público:** https://github.com/rubensvieirabda/EpidemiR
 **Branch padrão:** `develop` · **Working tree:** limpo · **Último commit:** `56e92ef`
 
 ### Já pronto
@@ -129,7 +129,7 @@ No editor da Base dos Dados: executar a SQL → **Baixar resultado → CSV**.
 
 ### Passo 3 — Onde colocar
 
-Na raiz `D:\source\R Lang\MapaGenBase\`:
+Na raiz `D:\source\R Lang\EpidemiR\`:
 
 ```
 data/raw/
@@ -200,7 +200,7 @@ Criei também `tools/verificar_csv.R` (testado aqui com os CSVs gerados) para vo
 
 ## Publicação no GitHub (feito em 23/11/2026)
 
-- Repo público: **https://github.com/rubensvieirabda/MapaGenBase**
+- Repo público: **https://github.com/rubensvieirabda/EpidemiR** (renomeado de MapaGenBase)
 - Branch `main`, commit inicial `9144c87`, 30 arquivos.
 - Removidos antes de publicar: `BaseMap.R` (não compilava + ID exposto),
   `.Rhistory`, `.Renviron`, CSVs/PNGs/RDS gerados.

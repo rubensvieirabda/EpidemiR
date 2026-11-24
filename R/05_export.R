@@ -35,7 +35,7 @@ write_report_md <- function(stats, cases, trends, paths, cfg) {
   }, character(1L))
 
   linhas <- c(
-    "# Relatorio automatico - MapaGenBase",
+    "# Relatorio automatico - EpidemiR",
     "",
     sprintf("Gerado em %s (origem: %s%s).",
             format(Sys.time(), "%d/%m/%Y %H:%M"),

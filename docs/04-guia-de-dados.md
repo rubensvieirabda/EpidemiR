@@ -155,7 +155,7 @@ você receberá os microdados completos; nesse caso, rode antes a SQL acima.
 
 ## 4. Onde colocar os arquivos
 
-Na raiz do projeto (`D:\source\R Lang\MapaGenBase\`):
+Na raiz do projeto (`D:\source\R Lang\EpidemiR\`):
 
 ```
 data/

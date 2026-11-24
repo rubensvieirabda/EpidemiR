@@ -1,4 +1,4 @@
-# MapaGenBase
+# EpidemiR
 
 Projeto de estudos de R que virou um pipeline de análise de dados de saúde pública:
 consulta a [Base dos Dados](https://basedosdados.org/) (SIM / SINASC) sobre

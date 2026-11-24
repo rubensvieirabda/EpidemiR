@@ -5,17 +5,17 @@
 #' Encontra a raiz do projeto subindo diretorios ate achar o .Rproj.
 .find_project_root <- function(start = getwd()) {
   env_root <- Sys.getenv("RENV_PROJECT", unset = "")
-  if (nzchar(env_root) && file.exists(file.path(env_root, "MapaGenBase.Rproj"))) {
+  if (nzchar(env_root) && file.exists(file.path(env_root, "EpidemiR.Rproj"))) {
     return(normalizePath(env_root, winslash = "/"))
   }
   path <- normalizePath(start, winslash = "/", mustWork = TRUE)
   repeat {
-    if (file.exists(file.path(path, "MapaGenBase.Rproj"))) return(path)
+    if (file.exists(file.path(path, "EpidemiR.Rproj"))) return(path)
     parent <- dirname(path)
     if (identical(parent, path)) break
     path <- parent
   }
-  stop("Nao encontrei MapaGenBase.Rproj a partir de '", start, "'.", call. = FALSE)
+  stop("Nao encontrei EpidemiR.Rproj a partir de '", start, "'.", call. = FALSE)
 }
 
 if (!exists("PROJECT_ROOT", inherits = FALSE)) {

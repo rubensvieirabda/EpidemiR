@@ -8,8 +8,8 @@ Este guia leva você de um clone vazio até o primeiro relatório. Feito em
 ## Checklist rápido (imprima / marque)
 
 ```
-[ ] 1. git clone https://github.com/rubensvieirabda/MapaGenBase.git
-[ ] 2. Abrir MapaGenBase.Rproj no RStudio
+[ ] 1. git clone https://github.com/rubensvieirabda/EpidemiR.git
+[ ] 2. Abrir EpidemiR.Rproj no RStudio
 [ ] 3. renv::restore()                       (instala 57 pacotes travados)
 [ ] 4. Rscript run_analysis.R --mock         (valida a máquina, sem internet)
 [ ] 5. Rscript tests/test_pipeline.R         (23 testes, sem rede)
@@ -26,14 +26,14 @@ Este guia leva você de um clone vazio até o primeiro relatório. Feito em
 ## Passo 1 — Clonar
 
 ```powershell
-git clone https://github.com/rubensvieirabda/MapaGenBase.git
-cd MapaGenBase
+git clone https://github.com/rubensvieirabda/EpidemiR.git
+cd EpidemiR
 git checkout develop        # já é o padrão, mas garante
 ```
 
 ## Passo 2 — Abrir o projeto
 
-Duplo clique em `MapaGenBase.Rproj`. O `.Rprofile` ativa o `renv`
+Duplo clique em `EpidemiR.Rproj`. O `.Rprofile` ativa o `renv`
 automaticamente. Confirme no console:
 
 ```r

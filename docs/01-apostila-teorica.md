@@ -1,7 +1,7 @@
 # Apostila: aprofundamento em R
 
 Material de estudo pensado para acompanhar **este projeto**. Cada conceito aparece
-primeiro na linguagem, depois conectado a um arquivo do `MapaGenBase`.
+primeiro na linguagem, depois conectado a um arquivo do `EpidemiR`.
 Trechos de código podem ser colados no console — experimente modificar tudo.
 
 > Convenção: `?funcao` abre a ajuda; `vignette(package = "dplyr")` lista as

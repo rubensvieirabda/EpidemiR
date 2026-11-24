@@ -3,7 +3,7 @@
 # Usa apenas dados mock: nao consulta BigQuery e nao precisa de GCP_BILLING_ID.
 
 root <- getwd()
-while (!file.exists(file.path(root, "MapaGenBase.Rproj")) && dirname(root) != root) {
+while (!file.exists(file.path(root, "EpidemiR.Rproj")) && dirname(root) != root) {
   root <- dirname(root)
 }
 PROJECT_ROOT <- root

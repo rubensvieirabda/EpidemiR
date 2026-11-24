@@ -1,4 +1,4 @@
-# MapaGenBase - ponto de entrada do pipeline -----------------------------------
+# EpidemiR - ponto de entrada do pipeline -------------------------------------
 # Uso:
 #   Rscript run_analysis.R --mock
 #   Rscript run_analysis.R --source=sinasc --years=2014-2019
@@ -6,7 +6,7 @@
 
 usage <- function() {
   paste(
-    "MapaGenBase - pipeline de extracao -> transformacao -> analise -> exportacao",
+    "EpidemiR - pipeline de extracao -> transformacao -> analise -> exportacao",
     "",
     "Opcoes:",
     "  --mock            usa dados sinteticos, sem internet/BigQuery",

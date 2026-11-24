@@ -49,7 +49,7 @@ Rscript tests/test_pipeline.R                      # testes
 Rscript run_analysis.R --help                      # ajuda da CLI
 ```
 
-No RStudio, abra `MapaGenBase.Rproj` e use `Ctrl+Shift+F10` (Source) ou rode
+No RStudio, abra `EpidemiR.Rproj` e use `Ctrl+Shift+F10` (Source) ou rode
 `source("run_analysis.R")`. Para passar argumentos pela IDE:
 
 ```r
