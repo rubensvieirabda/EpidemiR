@@ -5,15 +5,15 @@ consulta a [Base dos Dados](https://basedosdados.org/) (SIM / SINASC) sobre
 microcefalia, trata os dados, calcula taxas por 100 mil nascidos vivos, ajusta
 tendências e gera gráficos + relatório.
 
-> **Comece aqui:** o manual operacional (índice + comandos + auditoria +
-> limpeza + erros) está em [`docs/README.md`](docs/README.md). O checklist da
-> primeira vez está em [`docs/05-primeira-uso.md`](docs/05-primeira-uso.md), o
-> guia dos dados de raiva em [`docs/06-dados-raiva.md`](docs/06-dados-raiva.md)
-> e o ponto de retomada em [`info.md`](info.md).
+> **Comece aqui:** o manual operacional (comandos + auditoria + limpeza +
+> erros) está em [`docs/README.md`](docs/README.md). O checklist da primeira
+> vez está em [`docs/05-primeira-uso.md`](docs/05-primeira-uso.md), a origem
+> dos dados em [`docs/04-guia-de-dados.md`](docs/04-guia-de-dados.md) e o
+> estado atual em [`info.md`](info.md).
 
-O script original da aula (`BaseMap.R`) foi removido: não compilava (blocos
-Markdown dentro de `.R`) e continha um ID de billing exposto. O histórico da
-revisão está em `docs/00-revisao-critica.md`.
+O projeto foi refeito do zero: o script original da aula não compilava e
+continha um ID de billing exposto. Documentação histórica e material de estudo
+que não fazem mais parte do fluxo foram removidos (recuperáveis no Git).
 
 ## Começo rápido (30 segundos, sem internet)
 
@@ -105,8 +105,8 @@ tools/verificar_csv.R   valida um CSV baixado antes de usar
 tools/buscar_dados_reais.R  busca a origem no BigQuery com o .Renviron
 script/limpar_e_comecar_do_zero.ps1  limpa data/ e preserva os .gitkeep
 data/raw|processed|reports   saídas geradas (não versionadas)
-docs/                   revisão crítica, apostila, roadmap, guia de dados
-info.md                 ponto de retomada da sessão de estudos
+docs/                   manual operacional, guia de dados, primeira utilização
+info.md                 estado atual do projeto
 .Renviron.example       modelo de configuracao (sem segredo)
 ```
 
@@ -114,13 +114,12 @@ info.md                 ponto de retomada da sessão de estudos
 
 | Arquivo | Conteúdo |
 |---|---|
-| [docs/00-revisao-critica.md](docs/00-revisao-critica.md) | O que estava errado no script original e como foi corrigido |
-| [docs/01-apostila-teorica.md](docs/01-apostila-teorica.md) | Apostila profunda de R (tipos, escopo, tidyverse, SQL, estatística, performance) |
-| [docs/02-roadmap-estudos.md](docs/02-roadmap-estudos.md) | Plano de estudos de 12 semanas |
-| [docs/03-arquitetura-e-uso.md](docs/03-arquitetura-e-uso.md) | Arquitetura, contratos dos módulos, como estender, troubleshooting |
+| [docs/README.md](docs/README.md) | **Manual operacional**: comandos, origem dos dados, auditoria, limpeza, erros |
+| [docs/05-primeira-uso.md](docs/05-primeira-uso.md) | Checklist do clone ao primeiro relatório |
 | [docs/04-guia-de-dados.md](docs/04-guia-de-dados.md) | Dados SIM/SINASC: quais buscar, formato, onde colocar, como consumir |
-| [docs/05-primeira-uso.md](docs/05-primeira-uso.md) | **Comece aqui**: checklist do clone ao primeiro relatório |
-| [docs/06-dados-raiva.md](docs/06-dados-raiva.md) | Onde buscar raiva, campos exatos, animais e regiões de maior impacto |
+
+O que era histórico ou já foi refeito saiu da documentação. Se precisar de
+algum arquivo antigo, ele continua no histórico do Git.
 
 ## Segurança
 

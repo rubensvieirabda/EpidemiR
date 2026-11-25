@@ -163,9 +163,9 @@ Depois, volte ao passo 1 (ou rode `tools/buscar_dados_reais.R`).
 
 ## Próximo assunto
 
-Depois que o pipeline SIM/SINASC estiver rodando, veja
-[`06-dados-raiva.md`](06-dados-raiva.md) — onde buscar os dados de raiva e
-como mapear cada categoria pedida para os campos reais do SINAN.
+Com o pipeline rodando, o [manual](README.md) é a referência para auditoria,
+comandos e solução de problemas. O guia da origem está em
+[`04-guia-de-dados.md`](04-guia-de-dados.md).
 
 ## Como subir mudanças
 

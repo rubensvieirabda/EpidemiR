@@ -49,10 +49,9 @@ Os dois terminam com **os mesmos arquivos** na mesma pasta. O passo 5 é comum a
    passa direto para `basedosdados::read_sql(query, billing_project_id = ...)`.
    Não é preciso chamar `set_billing_id()`.
 
-> O script legado `BaseMap.R` e o `.Rhistory` foram removidos antes da
-> publicação por conterem um ID de projeto exposto. Se esse projeto já foi
-> usado em algum repositório público, **revoque/rotacione no Google Cloud**.
-> Use sempre o ID do seu próprio projeto no `.Renviron`.
+> Use sempre o ID do seu próprio projeto no `.Renviron` e nunca commite esse
+> arquivo. Se alguma credencial já apareceu em repositório público ou em texto,
+> **revoque/rotacione no Google Cloud**.
 
 ---
 

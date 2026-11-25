@@ -1,9 +1,9 @@
 # Manual do EpidemiR
 
 > **Documento de referência operacional.** Atualizado em 25/11/2026.
-> Se você quer apenas rodar o projeto, comece por aqui. Se quer aprender R,
-> vá para a [apostila](01-apostila-teorica.md) e o
-> [roadmap de estudos](02-roadmap-estudos.md).
+> A documentação foi enxugada: o que era histórico ou já foi refeito saiu.
+> Aqui está o manual; os outros dois arquivos são o passo a passo inicial e
+> o guia dos dados.
 
 ---
 
@@ -14,16 +14,14 @@
 | [`README.md`](../README.md) (raiz) | Visão geral do projeto e avisos de segurança | Antes de tudo |
 | **Este arquivo** | **Manual operacional: instalar, rodar, auditar, limpar** | **Sempre** |
 | [`05-primeira-uso.md`](05-primeira-uso.md) | Checklist do clone vazio ao primeiro relatório | Na primeira vez |
-| [`04-guia-de-dados.md`](04-guia-de-dados.md) | Quais dados, SQL pronta, formato dos CSVs,onde colocar | Antes de buscar dados |
-| [`03-arquitetura-e-uso.md`](03-arquitetura-e-uso.md) | Módulos, contratos de entrada/saída, como estender | Quando for mudar código |
-| [`01-apostila-teorica.md`](01-apostila-teorica.md) | Conceitos de R conectados ao projeto | Estudo |
-| [`02-roadmap-estudos.md`](02-roadmap-estudos.md) | Plano de estudos de 12 semanas | Estudo |
-| [`06-dados-raiva.md`](06-dados-raiva.md) | Pesquisa sobre SINAN-Raiva (próximo tema) | Depois do pipeline SIM/SINASC |
-| [`00-revisao-critica.md`](00-revisao-critica.md) | Registro histórico do script `BaseMap.R` | Só por curiosidade/histórico |
-| [`info.md`](../info.md) (raiz) | Ponto de retomada entre sessões | Ao voltar ao projeto |
+| [`04-guia-de-dados.md`](04-guia-de-dados.md) | Quais dados, SQL pronta, formato dos CSVs, onde colocar | Antes de buscar dados |
+| [`info.md`](../info.md) (raiz) | Estado atual do projeto | Ao voltar ao projeto |
 
-Regra prática: **manual = este arquivo**; os demais são aprofundamentos
-temáticos. Em caso de divergência, prevalecem o código e este manual.
+Regra prática: **manual = este arquivo**; os outros dois cobrem a primeira vez
+e a origem dos dados. Em caso de divergência, prevalecem o código e este manual.
+O material histórico (revisão do script antigo, apostila, roadmap e pesquisa de
+raiva) foi removido porque já foi refeito ou não faz parte do pipeline. Se
+precisar dele, está no histórico do Git.
 
 ---
 
@@ -218,8 +216,8 @@ ela não é necessária para o fluxo de `gcloud auth application-default login`.
 
 ## 9. Próximos passos
 
-- Rodando SIM/SINASC? Veja [`06-dados-raiva.md`](06-dados-raiva.md).
-- Quer mudar consulta, métrica ou gráfico? Veja
-  [`03-arquitetura-e-uso.md`](03-arquitetura-e-uso.md).
-- Quer aprender R com o projeto? Comece pela
-  [apostila](01-apostila-teorica.md) e pelo [roadmap](02-roadmap-estudos.md).
+- Primeira vez? Siga o [`05-primeira-uso.md`](05-primeira-uso.md).
+- Vai buscar/baixar dados? Use o [`04-guia-de-dados.md`](04-guia-de-dados.md).
+- Vai mudar consulta, métrica ou gráfico? O código é a referência:
+  `R/01_extract.R`, `R/03_analyze.R`, `R/04_visualize.R`.
+- Estado geral do projeto: [`info.md`](../info.md) na raiz.
