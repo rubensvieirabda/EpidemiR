@@ -53,10 +53,10 @@ Rscript run_analysis.R                           # processa e gera o relatório
 Rscript tests/test_pipeline.R                    # auditoria das etapas
 ```
 
-Na primeira vez, veja [`docs/05-primeira-uso.md`](docs/05-primeira-uso.md).
+Na primeira vez, veja [`docs/primeira-uso.md`](docs/primeira-uso.md).
 Para comandos, credenciais, limpeza e erros, use
 [`docs/README.md`](docs/README.md). Para SQL e formato dos CSVs,
-[`docs/04-guia-de-dados.md`](docs/04-guia-de-dados.md).
+[`docs/guia-de-dados.md`](docs/guia-de-dados.md).
 
 ---
 

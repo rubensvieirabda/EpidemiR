@@ -7,8 +7,8 @@ tendências e gera gráficos + relatório.
 
 > **Comece aqui:** o manual operacional (comandos + auditoria + limpeza +
 > erros) está em [`docs/README.md`](docs/README.md). O checklist da primeira
-> vez está em [`docs/05-primeira-uso.md`](docs/05-primeira-uso.md), a origem
-> dos dados em [`docs/04-guia-de-dados.md`](docs/04-guia-de-dados.md) e o
+> vez está em [`docs/primeira-uso.md`](docs/primeira-uso.md), a origem
+> dos dados em [`docs/guia-de-dados.md`](docs/guia-de-dados.md) e o
 > estado atual em [`info.md`](info.md).
 
 O projeto foi refeito do zero: o script original da aula não compilava e
@@ -115,8 +115,8 @@ info.md                 estado atual do projeto
 | Arquivo | Conteúdo |
 |---|---|
 | [docs/README.md](docs/README.md) | **Manual operacional**: comandos, origem dos dados, auditoria, limpeza, erros |
-| [docs/05-primeira-uso.md](docs/05-primeira-uso.md) | Checklist do clone ao primeiro relatório |
-| [docs/04-guia-de-dados.md](docs/04-guia-de-dados.md) | Dados SIM/SINASC: quais buscar, formato, onde colocar, como consumir |
+| [docs/primeira-uso.md](docs/primeira-uso.md) | Checklist do clone ao primeiro relatório |
+| [docs/guia-de-dados.md](docs/guia-de-dados.md) | Dados SIM/SINASC: quais buscar, formato, onde colocar, como consumir |
 
 O que era histórico ou já foi refeito saiu da documentação. Se precisar de
 algum arquivo antigo, ele continua no histórico do Git.

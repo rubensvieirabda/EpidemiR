@@ -165,7 +165,7 @@ Depois, volte ao passo 1 (ou rode `tools/buscar_dados_reais.R`).
 
 Com o pipeline rodando, o [manual](README.md) é a referência para auditoria,
 comandos e solução de problemas. O guia da origem está em
-[`04-guia-de-dados.md`](04-guia-de-dados.md).
+[`guia-de-dados.md`](guia-de-dados.md).
 
 ## Como subir mudanças
 

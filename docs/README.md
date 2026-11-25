@@ -13,8 +13,8 @@
 |---|---|---|
 | [`README.md`](../README.md) (raiz) | Visão geral do projeto e avisos de segurança | Antes de tudo |
 | **Este arquivo** | **Manual operacional: instalar, rodar, auditar, limpar** | **Sempre** |
-| [`05-primeira-uso.md`](05-primeira-uso.md) | Checklist do clone vazio ao primeiro relatório | Na primeira vez |
-| [`04-guia-de-dados.md`](04-guia-de-dados.md) | Quais dados, SQL pronta, formato dos CSVs, onde colocar | Antes de buscar dados |
+| [`primeira-uso.md`](primeira-uso.md) | Checklist do clone vazio ao primeiro relatório | Na primeira vez |
+| [`guia-de-dados.md`](guia-de-dados.md) | Quais dados, SQL pronta, formato dos CSVs, onde colocar | Antes de buscar dados |
 | [`info.md`](../info.md) (raiz) | Estado atual do projeto | Ao voltar ao projeto |
 
 Regra prática: **manual = este arquivo**; os outros dois cobrem a primeira vez
@@ -117,7 +117,7 @@ Remove-Item Env:EPIDEMIR_REAL_DATA
 ```
 
 Se você já baixou os CSVs manualmente (ver
-[guia de dados](04-guia-de-dados.md)), **não use `--no-cache`**: a flag refaz a
+[guia de dados](guia-de-dados.md)), **não use `--no-cache`**: a flag refaz a
 consulta e sobrescreve seus arquivos.
 
 ---
@@ -204,7 +204,7 @@ ela não é necessária para o fluxo de `gcloud auth application-default login`.
 | `Access denied` | termos do dataset não aceitos | aceite no site com o mesmo projeto |
 | `Arquivo nao encontrado: .../cases_sim.csv` | origem não foi baixada | `Rscript tools/buscar_dados_reais.R` |
 | `Nome nao reconhecido` no `verificar_csv.R` | arquivo com nome diferente | renomeie para `cases_sim.csv`, `cases_sinasc.csv` ou `births.csv` |
-| `faltam colunas obrigatorias: total` | baixou microdados brutos | rode a SQL agregada da [guia](04-guia-de-dados.md) |
+| `faltam colunas obrigatorias: total` | baixou microdados brutos | rode a SQL agregada da [guia](guia-de-dados.md) |
 | `Continuando em MODO MOCK` | sem chave e sem cache | configure `.Renviron` ou importe os CSVs |
 | `Motivo do modo mock` no relatório | fallback sem chave/cache | veja a linha do motivo e corrija a origem |
 | `gcloud: termo não reconhecido` | PATH da sessão antigo | atualize `$env:Path` (§3) ou faça logoff/logon |
@@ -216,8 +216,8 @@ ela não é necessária para o fluxo de `gcloud auth application-default login`.
 
 ## 9. Próximos passos
 
-- Primeira vez? Siga o [`05-primeira-uso.md`](05-primeira-uso.md).
-- Vai buscar/baixar dados? Use o [`04-guia-de-dados.md`](04-guia-de-dados.md).
+- Primeira vez? Siga o [`primeira-uso.md`](primeira-uso.md).
+- Vai buscar/baixar dados? Use o [`guia-de-dados.md`](guia-de-dados.md).
 - Vai mudar consulta, métrica ou gráfico? O código é a referência:
   `R/01_extract.R`, `R/03_analyze.R`, `R/04_visualize.R`.
 - Estado geral do projeto: [`info.md`](../info.md) na raiz.
