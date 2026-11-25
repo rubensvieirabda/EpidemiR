@@ -12,6 +12,11 @@ credentials*.json
 *credentials*.json
 service-account*.json
 *service_account*.json
+*OAuth*.md
+*oauth*.json
+client_secret*.json
+*client_secret*
+Cliente OAuth criado.md
 *.pem
 *.key
 .gcloud/

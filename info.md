@@ -1,6 +1,6 @@
 # Ponto de retomada — EpidemiR
 
-**Última atualização:** 24/11/2026 (renomeação + push) ·
+**Última atualização:** 25/11/2026 (auditoria + origem real) ·
 **Próxima sessão:** comece por este bloco ↓
 
 ---
@@ -9,13 +9,17 @@
 
 **Repo público:** https://github.com/rubensvieirabda/EpidemiR
 **Branch padrão:** `develop` · **Working tree:** limpo · **Sincronizada com:** `origin/develop`
-**Último commit:** confirme com `git log -1` (renomeação `ffdbff6` + atualização deste arquivo)
+**Último commit:** confirme com `git log -1` (renomeação, chave opcional, auditoria)
 
 ### Já pronto
 
-- Pipeline SIM/SINASC completo, 30 testes passando sem dependências externas.
+- Pipeline SIM/SINASC completo, 41 testes passando sem dependências externas.
+- Testes com auditoria `[DEBUG]` por etapa e saídas em `tempdir()`: `data/`
+  permanece limpo (só `.gitkeep`).
 - `GCP_BILLING_ID` opcional: cache local primeiro; sem chave e sem cache,
   o pipeline avisa e cai para mock (motivo registrado no relatório).
+- `.Renviron` local criado com `GCP_BILLING_ID=apidevbase` (ID, não o número
+  `233842803077`); arquivo ignorado pelo Git.
 - `renv.lock` sincronizado (57 pacotes), `renv::status()` limpo.
 - `develop` é a default; `main` é só referência do commit inicial.
 - Documentação `docs/00` a `docs/06`:
@@ -264,7 +268,7 @@ git status
 - Instruções de início conferidas em
   [`docs/05-primeira-uso.md`](docs/05-primeira-uso.md) — checklist completo do
   clone ao relatório, com link no topo do `README.md`.
-- Validação: `Rscript tests/test_pipeline.R` → **30 testes passaram**, sem
+- Validação: `Rscript tests/test_pipeline.R` → **41 testes passaram**, sem
   gerar arquivos versionados novos.
 - Commit `ffdbff6` (`Docs: renomear projeto de MapaGenBase para EpidemiR`)
   enviado com `git push origin develop`, seguido do commit que atualizou este
@@ -290,7 +294,36 @@ git status
   "Sem GCP_BILLING_ID e sem cache..." em vez de só "vazio".
 - Teste real feito aqui: `Rscript run_analysis.R` sem `.Renviron` e sem CSVs
   terminou em ~2s com `=== RESUMO ===` (35.228 casos mock).
-- Testes automatizados: **30 checagens** (7 novas para cache/chave/fallback),
-  todas passando. README e `docs/00`, `03`, `04`, `05` atualizados.
+- Testes automatizados: **41 checagens**, todas passando. README e `docs/00`,
+  `03`, `04`, `05` atualizados.
 - A máquina local **não tem `gcloud` no PATH**: para dados reais ainda é preciso
   instalá-lo, autenticar e aceitar os termos dos datasets.
+
+---
+
+## Atualização de 25/11/2026 — auditoria, origem importada e projeto GCP
+
+- Novo projeto Google Cloud: nome **ApiDevBase**, ID **`apidevbase`**, número
+  `233842803077` (número **nunca** é usado como billing ID).
+- `.Renviron` local criado com `GCP_BILLING_ID=apidevbase` (fora do Git).
+- `data/raw/`, `data/processed/` e `data/reports/` limpos: só `.gitkeep`.
+- `tests/test_pipeline.R` reescrito:
+  - origem sintética gravada como CSV em `tempdir()` e importada de volta pelo
+    mesmo caminho de cache do pipeline;
+  - `verificar_csv_fonte()` (em `tools/verificar_csv.R`) valida colunas, NAs,
+    negativos e UFs antes do processamento;
+  - auditoria `[DEBUG]` em cada etapa: linhas/colunas, NAs por coluna,
+    chaves `ano+sigla_uf` duplicadas, faixas numéricas e contagens esperadas;
+  - consistência verificada entre origem → transformação → análise → exportação
+    (totais de casos e nascidos preservados);
+  - saídas em `tempdir()`, com checagem explícita de que `data/` não foi sujo;
+  - busca real opt-in: `$env:EPIDEMIR_REAL_DATA=1; Rscript tests/test_pipeline.R`.
+- Novo `tools/buscar_dados_reais.R`: checa pré-requisitos sem rede, consulta o
+  BigQuery com `apidevbase`, grava os CSVs e valida cada um. Hoje ele para com
+  mensagem clara: faltam as credenciais ADC do `gcloud`.
+- `tools/verificar_csv.R` agora expõe `verificar_csv_fonte()` e continua
+  funcionando como CLI.
+- ⚠️ Existe o arquivo não versionado `Cliente OAuth criado.md` com um
+  **client secret do Google**. Foi adicionado ao `.gitignore`, mas a credencial
+  deve ser **revogada/rotacionada** no Console (e o arquivo idealmente movido
+  para fora do projeto). Nunca commitar nem compartilhar esse JSON.

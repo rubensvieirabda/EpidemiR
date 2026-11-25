@@ -202,7 +202,7 @@ internas prefixadas com `.`, constantes em maiúsculas (`UF_LOOKUP`, `DIRS`).
 Sem testes, mudar uma consulta quebra silenciosamente. Sem README, ninguém sabe
 como rodar. Tudo em variáveis globais impede testar uma etapa isolada.
 
-**Correção aplicada:** 8 módulos com contratos de entrada/saída, 30 checagens em
+**Correção aplicada:** 8 módulos com contratos de entrada/saída, 41 checagens em
 `tests/test_pipeline.R` (modo mock, sem rede), README e esta documentação.
 **Destino:** projeto inteiro.
 
@@ -222,4 +222,4 @@ como rodar. Tudo em variáveis globais impede testar uma etapa isolada.
 | sem validação | validação + grade completa |
 | padrão CID em comentário | parâmetro validado e testado |
 | escopo global | funções com contrato |
-| sem testes | 30 checagens offline |
+| sem testes | 41 checagens offline |

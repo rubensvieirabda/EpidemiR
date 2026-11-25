@@ -50,10 +50,17 @@ o ID de billing:
    Rscript run_analysis.R --years=2014-2019 --no-cache
    ```
 
-As consultas são salvas em `data/raw/` e reaproveitadas na próxima execução
-(`--no-cache` força uma nova consulta, com custo no BigQuery; sem chave, nesse
-caso, o pipeline cai para mock com aviso). O relatório registra a origem e,
-quando aplicável, o motivo do modo mock.
+Para buscar a origem **antes** de rodar o pipeline (e validar cada CSV):
+
+```powershell
+Rscript tools/buscar_dados_reais.R            # grava cases_*.csv + births.csv em data/raw/
+Rscript tools/verificar_csv.R data/raw/cases_sim.csv
+```
+
+As consultas são reaproveitadas na próxima execução (`--no-cache` força uma
+nova consulta, com custo no BigQuery; sem chave, nesse caso, o pipeline cai para
+mock com aviso). O relatório registra a origem e, quando aplicável, o motivo do
+modo mock.
 
 ## Estrutura
 
@@ -67,8 +74,9 @@ R/03_analyze.R          contagens, taxas, tendências, resumo
 R/04_visualize.R        gráficos base R
 R/05_export.R           CSV/RDS + relatório markdown
 R/06_optional_maps.R    coroplético opcional (fora do renv)
-tests/test_pipeline.R   30 checagens, sem dependências externas
+tests/test_pipeline.R   41 checagens + auditoria [DEBUG], sem rede por padrão
 tools/verificar_csv.R   valida um CSV baixado antes de usar
+tools/buscar_dados_reais.R  busca a origem no BigQuery com o .Renviron
 data/raw|processed|reports   saídas geradas (não versionadas)
 docs/                   revisão crítica, apostila, roadmap, guia de dados
 info.md                 ponto de retomada da sessão de estudos

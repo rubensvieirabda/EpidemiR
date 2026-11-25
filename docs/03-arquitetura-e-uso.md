@@ -24,16 +24,17 @@ de `library()` global, nada de variáveis com estado escondido (exceto o
 | Arquivo | Responsabilidade |
 |---|---|
 | `run_analysis.R` | descobre a raiz, carrega módulos, faz parse da CLI, orquestra |
-| `R/utils.R` | `log_info`, `abort_if`, `assert_columns`, `%||%`, `safe_png` |
+| `R/utils.R` | `log_info`, `log_warn`, `abort_if`, `assert_columns`, `%||%`, `safe_png` |
 | `R/00_config.R` | `PROJECT_ROOT`, `DIRS`, `UF_LOOKUP`, `default_config` |
-| `R/01_extract.R` | `build_query_cases`, `build_query_births`, `read_sql_cached`, `mock_*` |
+| `R/01_extract.R` | `build_query_*`, `resolve_data_source`, `.cache_paths`, `read_sql_cached`, `mock_*` |
 | `R/02_transform.R` | `prepare_cases`, `prepare_births`, `add_uf_metadata` |
 | `R/03_analyze.R` | `summarize_by_*`, `add_rates`, `fit_trends`, `summary_stats` |
 | `R/04_visualize.R` | gráficos base R (sem dependências extras) |
 | `R/05_export.R` | CSV/RDS + relatório markdown |
 | `R/06_optional_maps.R` | coropletico opcional (ignorado pelo `renv`) |
-| `tests/test_pipeline.R` | 30 checagens offline |
-| `tools/verificar_csv.R` | valida um CSV baixado manualmente |
+| `tests/test_pipeline.R` | 41 checagens offline + auditoria por etapa |
+| `tools/verificar_csv.R` | `verificar_csv_fonte()` + CLI: valida CSV de origem |
+| `tools/buscar_dados_reais.R` | busca origem no BigQuery com `apidevbase` e valida os CSVs |
 | `docs/04-guia-de-dados.md` | passo a passo: dados, formato, caminhos, consumo |
 
 ## Como executar

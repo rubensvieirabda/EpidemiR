@@ -12,7 +12,7 @@ Este guia leva você de um clone vazio até o primeiro relatório. Feito em
 [ ] 2. Abrir EpidemiR.Rproj no RStudio
 [ ] 3. renv::restore()                       (instala 57 pacotes travados)
 [ ] 4. Rscript run_analysis.R --mock         (valida a máquina, sem internet)
-[ ] 5. Rscript tests/test_pipeline.R         (30 testes, sem rede)
+[ ] 5. Rscript tests/test_pipeline.R         (41 testes, sem rede)
 [ ] 6. Copiar .Renviron.example -> .Renviron e preencher GCP_BILLING_ID
 [ ] 7. Reiniciar o R/RStudio
 [ ] 8. gcloud auth application-default login
@@ -58,12 +58,22 @@ Rscript run_analysis.R --mock
 Rscript tests/test_pipeline.R
 ```
 
-Esperado: `30 testes passaram` e um `=== RESUMO ===` no console. Se isso
+Esperado: `41 testes passaram` e um `=== RESUMO ===` no console. Se isso
 falhar, **pare aqui** — o problema é local, não credencial.
 
 Sem `.Renviron` e sem CSVs em `data/raw/`, `Rscript run_analysis.R` ainda
 termina: avisa, usa dados mock e grava o motivo no relatório. A chave só é
 necessária para consultar o BigQuery.
+
+Os testes imprimem linhas `[DEBUG]` por etapa (linhas, NAs, chaves duplicadas e
+faixas de valores) e **não sujam `data/`**: CSVs, gráficos e relatório vão para
+`tempdir()`. A busca real dentro dos testes é opcional:
+
+```powershell
+$env:EPIDEMIR_REAL_DATA = "1"   # exige gcloud autenticado + termos aceitos
+Rscript tests/test_pipeline.R
+Remove-Item Env:EPIDEMIR_REAL_DATA
+```
 
 ## Passo 5 — Credenciais (opcional, só para consultar o BigQuery)
 
@@ -92,6 +102,7 @@ Depois:
 ## Passo 6 — Rodar com dados reais
 
 ```powershell
+Rscript tools/buscar_dados_reais.R     # busca + valida os CSVs de origem
 Rscript run_analysis.R                 # SIM + nascidos
 Rscript run_analysis.R --source=sinasc # SINASC + nascidos
 ```
