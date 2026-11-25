@@ -3,9 +3,10 @@
 > O arquivo original foi **removido do repositório antes da publicação** porque
 > não compilava e continha um ID de billing exposto. Esta revisão é mantida como
 > registro didático do que foi corrigido; valores sensíveis foram substituídos
-> por `<ID_DO_PROJETO>`.
+> por `<ID_DO_PROJETO>`. Para rodar o projeto hoje, veja o
+> [manual operacional](README.md).
 
-Revisão do script original com.base no estado em que foi encontrado. A coluna
+Revisão do script original com base no estado em que foi encontrado. A coluna
 "Destino" mostra onde cada problema foi tratado no pipeline novo.
 
 Resumo: **1 problema bloqueante, 4 de alta/média-alta prioridade, 7 de média/baixa**.
@@ -203,7 +204,8 @@ Sem testes, mudar uma consulta quebra silenciosamente. Sem README, ninguém sabe
 como rodar. Tudo em variáveis globais impede testar uma etapa isolada.
 
 **Correção aplicada:** 8 módulos com contratos de entrada/saída, 41 checagens em
-`tests/test_pipeline.R` (modo mock, sem rede), README e esta documentação.
+`tests/test_pipeline.R` (44 com busca real opcional), auditoria `[DEBUG]` por
+etapa, README, manual operacional e esta documentação.
 **Destino:** projeto inteiro.
 
 ---
@@ -222,4 +224,6 @@ como rodar. Tudo em variáveis globais impede testar uma etapa isolada.
 | sem validação | validação + grade completa |
 | padrão CID em comentário | parâmetro validado e testado |
 | escopo global | funções com contrato |
-| sem testes | 41 checagens offline |
+| sem testes | 41 checagens offline (44 com BigQuery) |
+| saídas sujavam o projeto | testes em `tempdir()` + script de limpeza |
+| origem sem checagem | `verificar_csv_fonte()` + auditoria `[DEBUG]` por etapa |

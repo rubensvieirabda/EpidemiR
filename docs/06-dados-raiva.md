@@ -4,6 +4,10 @@ Pesquisa feita em **23/11/2026** em fontes oficiais. Todo campo, arquivo e
 número abaixo foi verificado no dicionário do Ministério da Saúde, no FTP do
 DATASUS e na página do Ministério da Saúde.
 
+> Este é um documento de **pesquisa**, ainda não implementado no pipeline.
+> Para executar o que já existe (SIM/SINASC), veja o
+> [manual operacional](README.md).
+
 ---
 
 ## 0. Resposta curta
@@ -152,8 +156,8 @@ DATASUS) ou converta com `read.dbc::read.dbc()`.
 2. Na aba **Tabelas**, escolha a tabela de microdados geral (a mesma usada
    pelo pipeline em `R/01_extract.R` para SIM/SINASC).
 3. Filtre o agravo de raiva (`id_agravo`) antes de agregar.
-4. Aceite os termos do dataset para o seu projeto Google Cloud e use
-   `GCP_BILLING_ID` como já configurado.
+4. Aceite os termos do dataset para o seu projeto Google Cloud e use o ID desse
+   projeto em `GCP_BILLING_ID` no `.Renviron` (nunca o número de 12 dígitos).
 
 SQL esqueleto (confirme o nome da tabela e o código do agravo no seletor do
 site antes de rodar):

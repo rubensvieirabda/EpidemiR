@@ -4,6 +4,10 @@ Material de estudo pensado para acompanhar **este projeto**. Cada conceito apare
 primeiro na linguagem, depois conectado a um arquivo do `EpidemiR`.
 Trechos de código podem ser colados no console — experimente modificar tudo.
 
+> Para **rodar** o pipeline, veja o [manual operacional](README.md). Aqui o foco
+> é entender o código; o [roadmap](02-roadmap-estudos.md) organiza a ordem de
+> estudo.
+
 > Convenção: `?funcao` abre a ajuda; `vignette(package = "dplyr")` lista as
 > vignettes. Leia a ajuda **depois** de tentar prever o resultado.
 
@@ -287,8 +291,9 @@ tryCatch(
 | `browser()` | coloque dentro da função; `n` próxima linha, `c` continua, `Q` sai |
 | `conditionMessage(e)` | pega só o texto do erro dentro de `tryCatch` |
 
-O `.Rhistory` do projeto termina com `rlang::last_trace()` — sinal de que foi
-usado para investigar justamente o erro de parse do `BaseMap.R`.
+Quando um arquivo não parseia, `rlang::last_trace()` ajuda a localizar o ponto:
+foi assim que o erro do script legado `BaseMap.R` foi investigado (ver
+[`00-revisao-critica.md`](00-revisao-critica.md)).
 
 ---
 

@@ -3,6 +3,9 @@
 Plano para sair da introdução e chegar a **análise de dados reproduzível com R**,
 usando este repositório como laboratório. Carga sugerida: 6-8 h/semana.
 
+> Para executar o pipeline, siga o [manual operacional](README.md); a
+> [apostila](01-apostila-teorica.md) acompanha as semanas 1-9.
+
 Regra de ouro: **não pule a execução**. Cada semana termina com código rodando e
 uma resposta escrita com suas próprias palavras.
 
@@ -120,9 +123,11 @@ medido"? Como o pipeline distingue isso (`is_imputed`)?
 - `read_sql()` do `basedosdados`; `billing_project_id`.
 - Alternativa: `DBI` + `dbplyr` (traduz dplyr para SQL).
 
-**Exercício no repo:** compare `build_query_cases(cfg)` com a consulta original
-em `BaseMap.R`. Liste 3 diferenças. Depois rode com `--no-cache` **apenas uma
-vez** e meça `system.time()`.
+**Exercício no repo:** compare `build_query_cases(cfg)` (em `R/01_extract.R`)
+com a SQL pronta em [`04-guia-de-dados.md`](04-guia-de-dados.md) e com o registro
+do script antigo em [`00-revisao-critica.md`](00-revisao-critica.md). Liste 3
+diferenças. Depois rode com `--no-cache` **apenas uma vez** e meça
+`system.time()`.
 
 **Checkpoint:** por que a validação por regex em `.abstract_sql_text()` existe
 mesmo com valores fixos?

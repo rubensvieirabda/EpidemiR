@@ -1,5 +1,8 @@
 # Arquitetura e uso do pipeline
 
+> Para **rodar** o projeto, use o [manual operacional](README.md). Este arquivo
+> descreve a estrutura interna e como estendê-la.
+
 ## Fluxo de dados
 
 ```mermaid
@@ -32,9 +35,11 @@ de `library()` global, nada de variáveis com estado escondido (exceto o
 | `R/04_visualize.R` | gráficos base R (sem dependências extras) |
 | `R/05_export.R` | CSV/RDS + relatório markdown |
 | `R/06_optional_maps.R` | coropletico opcional (ignorado pelo `renv`) |
-| `tests/test_pipeline.R` | 41 checagens offline + auditoria por etapa |
+| `tests/test_pipeline.R` | 41 checagens offline (44 com busca real) + auditoria por etapa |
 | `tools/verificar_csv.R` | `verificar_csv_fonte()` + CLI: valida CSV de origem |
-| `tools/buscar_dados_reais.R` | busca origem no BigQuery com `apidevbase` e valida os CSVs |
+| `tools/buscar_dados_reais.R` | busca origem no BigQuery e valida os CSVs |
+| `script/limpar_e_comecar_do_zero.ps1` | apaga artefatos em `data/`, preserva os `.gitkeep` |
+| `docs/README.md` | manual operacional + índice da documentação |
 | `docs/04-guia-de-dados.md` | passo a passo: dados, formato, caminhos, consumo |
 
 ## Como executar
@@ -46,7 +51,10 @@ Rscript run_analysis.R                             # cache local -> BigQuery -> 
 Rscript run_analysis.R --source=sinasc             # SINASC real
 Rscript run_analysis.R --years=2015-2019           # recorte
 Rscript run_analysis.R --no-cache                  # força nova consulta
-Rscript tests/test_pipeline.R                      # testes
+Rscript tools/buscar_dados_reais.R                 # busca + valida a origem
+Rscript tools/verificar_csv.R data/raw/cases_sim.csv
+Rscript tests/test_pipeline.R                      # 41 checagens + [DEBUG]
+pwsh -File script/limpar_e_comecar_do_zero.ps1     # limpa data/
 Rscript run_analysis.R --help                      # ajuda da CLI
 ```
 
@@ -103,7 +111,7 @@ Opcionais — o pipeline **não quebra** sem eles:
 
 ### Sincronizando o `renv`
 
-O lockfile está desatualizado em relação ao ambiente. Para corrigir:
+O lockfile pode estar desatualizado em relação ao ambiente. Para corrigir:
 
 ```r
 renv::status()      # mostra o que está fora de sincronia
@@ -166,6 +174,10 @@ apenas para os testes rodarem hoje sem dependência extra.
 | `Continuando em MODO MOCK` | sem chave e sem cache completo em `data/raw/` | configure `.Renviron` ou coloque os CSVs na pasta |
 | `Sem GCP_BILLING_ID e sem cache` | consulta forçada (`--no-cache`) sem credencial | defina a chave ou rode sem `--no-cache` |
 | `Falha na consulta ... access denied` | conta sem permissão na tabela | aceite os termos do dataset no site da Base dos Dados |
+| `Can't get Google credentials` | sem login do Google | `gcloud auth application-default login` |
+| `Credenciais padrao do Google nao encontradas` | ADC fora do caminho esperado | no Windows: `%APPDATA%\gcloud\application_default_credentials.json` |
+| `Arquivo nao encontrado: .../cases_sim.csv` | origem não baixada | `Rscript tools/buscar_dados_reais.R` |
+| `gcloud` não reconhecido | PATH da sessão antigo | `$env:Path += ";$env:LOCALAPPDATA\Google\Cloud SDK\google-cloud-sdk\bin"` |
 | `The project is out-of-sync` | lockfile incompleto | `renv::snapshot()` |
 | Gráfico vazio / estranho | dispositivo vazado de erro anterior | `while (dev.cur() > 1) dev.off()` |
 | Dados "de 2015" aparecendo em 2019 | cache antigo em `data/raw/` | rode com `--no-cache` |

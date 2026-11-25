@@ -1,7 +1,8 @@
 # Guia prático: buscar, baixar e consumir os dados
 
 Este guia responde a quatro perguntas: **quais dados**, **qual formato**,
-**onde colocar** e **como o projeto consome**.
+**onde colocar** e **como o projeto consome**. Para comandos de execução e
+limpeza, veja o [manual operacional](README.md).
 
 ---
 
@@ -20,8 +21,8 @@ Então você tem **dois caminhos**:
 
 | Caminho | Quando usar | O que você faz |
 |---|---|---|
-| **A. Automático (recomendado)** | tem Google Cloud e quer o pipeline completo | só roda `Rscript run_analysis.R` |
-| **B. Manual pelo site** | quer aprender a consultar na interface, ou está sem credenciais configuradas | roda a SQL no site, baixa o CSV, coloca em `data/raw/` |
+| **A. Automático (recomendado)** | tem Google Cloud e quer o pipeline completo | `Rscript tools/buscar_dados_reais.R` e depois `Rscript run_analysis.R` |
+| **B. Manual pelo site** | quer aprender a consultar na interface ou prefere não usar a nuvem | roda a SQL no site, baixa o CSV, coloca em `data/raw/` |
 
 Os dois terminam com **os mesmos arquivos** na mesma pasta. O passo 5 é comum aos dois.
 
@@ -155,7 +156,7 @@ você receberá os microdados completos; nesse caso, rode antes a SQL acima.
 
 ## 4. Onde colocar os arquivos
 
-Na raiz do projeto (`D:\source\R Lang\EpidemiR\`):
+Na raiz do projeto (pasta que contém `EpidemiR.Rproj`):
 
 ```
 data/
@@ -222,10 +223,15 @@ Rscript tools/verificar_csv.R data/raw/cases_sim.csv
 Rscript tools/verificar_csv.R data/raw/births.csv
 ```
 
+> O nome do arquivo define o formato esperado: `cases_sim.csv` e
+> `cases_sinasc.csv` exigem `ano,sigla_uf,total`; `births.csv` exige
+> `ano,sigla_uf,nascidos`. Outros nomes são rejeitados.
+
 ### Rodando o pipeline
 
 ```powershell
-# Caminho A: com credenciais; se cache existir, só lê o CSV
+# Caminho A: busca e valida a origem, depois processa
+Rscript tools/buscar_dados_reais.R
 Rscript run_analysis.R
 
 # Caminho A forçando consulta nova (sobrescreve o cache)
@@ -235,6 +241,9 @@ Rscript run_analysis.R --no-cache
 Rscript run_analysis.R --source=sinasc
 
 # Se você baixou manualmente, NÃO use --no-cache: ele refaria a consulta
+
+# Para apagar tudo e recomeçar (preserva os .gitkeep)
+pwsh -File script/limpar_e_comecar_do_zero.ps1
 ```
 
 Quando o cache é encontrado, você verá no console:
@@ -260,8 +269,10 @@ por `ano`/`sigla_uf`, completa a grade 27 UFs × 6 anos e cola nome/região.
 | `Continuando em MODO MOCK` | sem chave e sem cache completo | configure `.Renviron` ou coloque os CSVs em `data/raw/` |
 | `Sem GCP_BILLING_ID e sem cache` | `--no-cache` sem credencial | defina a chave ou remova a flag |
 | `Access denied` / `permission denied` | termos do dataset não aceitos | aceite no site da Base dos Dados para o seu projeto |
-| `Could not load default credentials` | Google sem login | `gcloud auth application-default login` |
-| `Cache encontrado` mas dados estranhos | CSV velho/mock | apague o arquivo em `data/raw/` e rode de novo |
+| `Could not load default credentials` / `Can't get Google credentials` | Google sem login | `gcloud auth application-default login` |
+| `Credenciais padrao do Google nao encontradas` | ADC fora do lugar | no Windows: `%APPDATA%\gcloud\application_default_credentials.json` |
+| `Arquivo nao encontrado` em `data/raw/` | origem não baixada | `Rscript tools/buscar_dados_reais.R` |
+| `Cache encontrado` mas dados estranhos | CSV velho/mock | rode `script/limpar_e_comecar_do_zero.ps1` e importe de novo |
 | `colunas obrigatorias: total` | baixou microdados em vez do resultado da SQL | rode a SQL agregada e salve como `cases_sim.csv` |
 | `Falha na consulta ...` com `LIKE` | filtro de CID diferente do esquema | confira `causa_basica` / `anomalia_congenita` no dicionário |
 | `MODO MOCK` no relatório | usou `--mock`, ou caiu no fallback sem chave/cache | veja a linha "Motivo do modo mock"; configure chave/cache para dados reais |

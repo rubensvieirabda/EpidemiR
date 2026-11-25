@@ -353,3 +353,28 @@ git status
 - README atualizado com o estado limpo do ambiente, o fluxo completo
   (limpar → buscar origem → processar → testar) e o lembrete de rotação do
   client secret.
+
+---
+
+## Atualização de 25/11/2026 — documentação reorganizada
+
+- Criado `docs/README.md`: **manual operacional único** da pasta `docs/`, com
+  índice dos 8 documentos, pré-requisitos, decisão da origem
+  (mock/cache/BigQuery), fluxo padrão, tabela de comandos, auditoria dos testes,
+  limpeza, segurança e tabela de erros.
+- Os demais arquivos de `docs/` ganharam link para o manual no topo e tiveram
+  inconsistências corrigidas:
+  - `05-primeira-uso.md`: data, checklist com `tools/buscar_dados_reais.R`,
+    verificação de `dados=cache`/`mock=FALSE`, erros do `gcloud`/ADC e ordem
+    das seções;
+  - `04-guia-de-dados.md`: caminho A usa o script de busca, nome dos CSVs
+    validado pelo `verificar_csv.R`, limpeza e erros de credencial;
+  - `03-arquitetura-e-uso.md`: novos scripts no mapa de arquivos, 41/44 testes
+    e troubleshooting de credenciais;
+  - `02-roadmap-estudos.md`: exercício que citava o `BaseMap.R` removido agora
+    aponta para `R/01_extract.R` + guia de dados + revisão histórica;
+  - `00-revisao-critica.md`: marcado como histórico, contagem de testes e
+    linhas novas no quadro antes × depois;
+  - `01-apostila-teorica.md` e `06-dados-raiva.md`: ponteiros para o manual e
+    esclarecimento de que a raiva ainda não está implementada.
+- README da raiz agora aponta o manual como "Comece aqui".

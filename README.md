@@ -5,10 +5,11 @@ consulta a [Base dos Dados](https://basedosdados.org/) (SIM / SINASC) sobre
 microcefalia, trata os dados, calcula taxas por 100 mil nascidos vivos, ajusta
 tendências e gera gráficos + relatório.
 
-> **Comece aqui:** checklist de primeira utilização em
-> [`docs/05-primeira-uso.md`](docs/05-primeira-uso.md). O guia dos dados de
-> raiva está em [`docs/06-dados-raiva.md`](docs/06-dados-raiva.md). O ponto de
-> retomada das sessões está em [`info.md`](info.md).
+> **Comece aqui:** o manual operacional (índice + comandos + auditoria +
+> limpeza + erros) está em [`docs/README.md`](docs/README.md). O checklist da
+> primeira vez está em [`docs/05-primeira-uso.md`](docs/05-primeira-uso.md), o
+> guia dos dados de raiva em [`docs/06-dados-raiva.md`](docs/06-dados-raiva.md)
+> e o ponto de retomada em [`info.md`](info.md).
 
 O script original da aula (`BaseMap.R`) foi removido: não compilava (blocos
 Markdown dentro de `.R`) e continha um ID de billing exposto. O histórico da
