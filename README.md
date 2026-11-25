@@ -57,6 +57,13 @@ Rscript tools/buscar_dados_reais.R            # grava cases_*.csv + births.csv e
 Rscript tools/verificar_csv.R data/raw/cases_sim.csv
 ```
 
+Para apagar tudo e recomeçar do zero (preserva os `.gitkeep`):
+
+```powershell
+pwsh -File script/limpar_e_comecar_do_zero.ps1
+pwsh -File script/limpar_e_comecar_do_zero.ps1 -WhatIf   # só simula
+```
+
 As consultas são reaproveitadas na próxima execução (`--no-cache` força uma
 nova consulta, com custo no BigQuery; sem chave, nesse caso, o pipeline cai para
 mock com aviso). O relatório registra a origem e, quando aplicável, o motivo do
@@ -77,6 +84,7 @@ R/06_optional_maps.R    coroplético opcional (fora do renv)
 tests/test_pipeline.R   41 checagens + auditoria [DEBUG], sem rede por padrão
 tools/verificar_csv.R   valida um CSV baixado antes de usar
 tools/buscar_dados_reais.R  busca a origem no BigQuery com o .Renviron
+script/limpar_e_comecar_do_zero.ps1  limpa data/ e preserva os .gitkeep
 data/raw|processed|reports   saídas geradas (não versionadas)
 docs/                   revisão crítica, apostila, roadmap, guia de dados
 info.md                 ponto de retomada da sessão de estudos

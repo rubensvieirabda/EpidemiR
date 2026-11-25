@@ -346,6 +346,7 @@ git status
   / 100 mil. Relatório sem `MODO MOCK` (confirmado no cabeçalho).
 - `EPIDEMIR_REAL_DATA=1 Rscript tests/test_pipeline.R` → **44 testes passaram**
   (3 consultas reais extras, recorte 2014–2015, gravadas só em `tempdir()`).
-- Estado atual de `data/`: `raw` contém a origem real importada; `processed` e
-  `reports` contêm as saídas do pipeline. Tudo ignorado pelo Git. Para voltar ao
-  estado limpo: apagar o conteúdo das três pastas preservando os `.gitkeep`.
+- Estado atual de `data/`: limpo (só `.gitkeep`) após validar o novo script.
+- Criado `script/limpar_e_comecar_do_zero.ps1`: apaga o conteúdo de `data/raw`,
+  `data/processed` e `data/reports`, preserva os `.gitkeep`, funciona de qualquer
+  diretório e aceita `-WhatIf` para simular. Testado nos dois modos.

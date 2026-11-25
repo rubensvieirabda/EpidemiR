@@ -138,13 +138,24 @@ Abra `data/reports/relatorio.md`. Itens de checagem:
 | `Access denied` | aceitar termos do dataset no site |
 | `Could not load default credentials` | `gcloud auth application-default login` |
 | `Faltam colunas: total` | baixou microdados brutos; rode a SQL agregada |
-| dado esquisito | apagar `data/raw/*.csv` e rodar de novo |
+| dado esquisito | rodar `script/limpar_e_comecar_do_zero.ps1` e importar de novo |
 
 ## Próximo assunto
 
 Depois que o pipeline SIM/SINASC estiver rodando, veja
 [`06-dados-raiva.md`](06-dados-raiva.md) — onde buscar os dados de raiva e
 como mapear cada categoria pedida para os campos reais do SINAN.
+
+## Recomeçar do zero
+
+Apaga CSVs brutos, tabelas, gráficos e relatório, preservando os `.gitkeep`:
+
+```powershell
+pwsh -File script/limpar_e_comecar_do_zero.ps1        # executa
+pwsh -File script/limpar_e_comecar_do_zero.ps1 -WhatIf # só simula
+```
+
+Depois, volte ao passo 1 (ou rode `tools/buscar_dados_reais.R`).
 
 ## Como subir mudanças
 
