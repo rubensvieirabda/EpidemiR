@@ -26,17 +26,21 @@ credentials_ready <- function() {
   if (!requireNamespace("basedosdados", quietly = TRUE)) {
     return(list(ok = FALSE, msg = "Instale o pacote basedosdados."))
   }
-  adc <- Sys.getenv("GOOGLE_APPLICATION_CREDENTIALS", unset = "")
-  if (!nzchar(adc)) {
-    adc <- file.path(path.expand("~"), ".config", "gcloud",
-                     "application_default_credentials.json")
-  }
-  if (!file.exists(adc)) {
+  candidatos <- c(
+    Sys.getenv("GOOGLE_APPLICATION_CREDENTIALS", unset = ""),
+    file.path(Sys.getenv("APPDATA", unset = ""), "gcloud",
+              "application_default_credentials.json"),
+    file.path(path.expand("~"), ".config", "gcloud",
+              "application_default_credentials.json")
+  )
+  candidatos <- candidatos[nzchar(candidatos) & file.exists(candidatos)]
+  if (length(candidatos) == 0L) {
     return(list(ok = FALSE, msg = paste0(
-      "Credenciais padrao do Google nao encontradas em '", adc, "'. ",
-      "Instale o Google Cloud CLI e rode: gcloud auth application-default login")))
+      "Credenciais padrao do Google nao encontradas. ",
+      "Rode: gcloud auth application-default login. ",
+      "No Windows o arquivo fica em %APPDATA%\\gcloud\\application_default_credentials.json")))
   }
-  list(ok = TRUE, id = id)
+  list(ok = TRUE, id = id, adc = candidatos[1L])
 }
 
 #' Consulta o BigQuery e grava cases_<source>.csv + births.csv em raw_dir.
@@ -46,6 +50,7 @@ fetch_real_sources <- function(raw_dir,
                                years = 2014:2019) {
   chk <- credentials_ready()
   abort_if(!chk$ok, chk$msg)
+  log_info("Credencial ADC encontrada: %s", chk$adc)
 
   make_dir(raw_dir)
   cfg <- default_config(source = source,
