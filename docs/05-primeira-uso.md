@@ -71,7 +71,7 @@ faixas de valores) e **não sujam `data/`**: CSVs, gráficos e relatório vão p
 
 ```powershell
 $env:EPIDEMIR_REAL_DATA = "1"   # exige gcloud autenticado + termos aceitos
-Rscript tests/test_pipeline.R
+Rscript tests/test_pipeline.R   # 44 testes (3 consultas reais a mais)
 Remove-Item Env:EPIDEMIR_REAL_DATA
 ```
 

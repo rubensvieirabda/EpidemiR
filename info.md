@@ -319,11 +319,33 @@ git status
   - saídas em `tempdir()`, com checagem explícita de que `data/` não foi sujo;
   - busca real opt-in: `$env:EPIDEMIR_REAL_DATA=1; Rscript tests/test_pipeline.R`.
 - Novo `tools/buscar_dados_reais.R`: checa pré-requisitos sem rede, consulta o
-  BigQuery com `apidevbase`, grava os CSVs e valida cada um. Hoje ele para com
-  mensagem clara: faltam as credenciais ADC do `gcloud`.
+  BigQuery com `apidevbase`, grava os CSVs e valida cada um. Corrigido para
+  encontrar a credencial ADC no Windows (`%APPDATA%\gcloud\...`).
 - `tools/verificar_csv.R` agora expõe `verificar_csv_fonte()` e continua
   funcionando como CLI.
 - ⚠️ Existe o arquivo não versionado `Cliente OAuth criado.md` com um
   **client secret do Google**. Foi adicionado ao `.gitignore`, mas a credencial
   deve ser **revogada/rotacionada** no Console (e o arquivo idealmente movido
   para fora do projeto). Nunca commitar nem compartilhar esse JSON.
+
+---
+
+## Atualização de 25/11/2026 — dados reais funcionando
+
+- Google Cloud SDK `594.0.1` instalado via `winget` (`Google.CloudSDK`). O PATH
+  do usuário já contém `%LOCALAPPDATA%\Google\Cloud SDK\google-cloud-sdk\bin`;
+  sessões antigas precisam de `$env:Path += "..."` ou logoff/logon.
+- `gcloud auth application-default login` concluído. ADC salva em
+  `C:\Users\rlyra\AppData\Roaming\gcloud\application_default_credentials.json`,
+  com `apidevbase` como projeto de cota.
+- `Rscript tools/buscar_dados_reais.R` executado com sucesso:
+  - `data/raw/cases_sim.csv`: 148 linhas, 27 UFs, total 1.168;
+  - `data/raw/births.csv`: 162 linhas, 27 UFs, total 17.572.340.
+- `Rscript run_analysis.R` rodou em **cache real** (`dados=cache`, `mock=FALSE`):
+  período 2014–2019, pico 2016 (250 casos), top UF SP (175), taxa nacional 6,65
+  / 100 mil. Relatório sem `MODO MOCK` (confirmado no cabeçalho).
+- `EPIDEMIR_REAL_DATA=1 Rscript tests/test_pipeline.R` → **44 testes passaram**
+  (3 consultas reais extras, recorte 2014–2015, gravadas só em `tempdir()`).
+- Estado atual de `data/`: `raw` contém a origem real importada; `processed` e
+  `reports` contêm as saídas do pipeline. Tudo ignorado pelo Git. Para voltar ao
+  estado limpo: apagar o conteúdo das três pastas preservando os `.gitkeep`.
