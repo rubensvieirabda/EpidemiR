@@ -2,7 +2,7 @@
 
 Projeto de estudos de R que virou um pipeline de análise de dados de saúde pública:
 consulta a [Base dos Dados](https://basedosdados.org/) (SIM / SINASC) sobre
-microcefalia, trata os dados, calcula taxas por 100 mil nascidos vivos ajusta
+microcefalia, trata os dados, calcula taxas por 100 mil nascidos vivos, ajusta
 tendências e gera gráficos + relatório.
 
 > **Comece aqui:** checklist de primeira utilização em
@@ -23,6 +23,24 @@ Rscript tests/test_pipeline.R
 
 O modo `--mock` gera dados sintéticos com semente fixa: ideal para aprender,
 testar e garantir que nada depende de credenciais.
+
+## Estado do ambiente
+
+- `data/raw`, `data/processed` e `data/reports` estão **limpos** (só os
+  `.gitkeep`). Nenhum dado bruto ou artefato é versionado.
+- Credenciais são locais: `.Renviron` com `GCP_BILLING_ID=apidevbase` e login
+  do Google feito via `gcloud auth application-default login` (ADC).
+- Testes: **41 checagens** por padrão (sem rede) e **44** com busca real ligada
+  (`$env:EPIDEMIR_REAL_DATA=1`), sempre com saídas em `tempdir()`.
+
+Fluxo recomendado:
+
+```powershell
+pwsh -File script/limpar_e_comecar_do_zero.ps1   # garante o ponto de partida
+Rscript tools/buscar_dados_reais.R               # importa a origem do BigQuery
+Rscript run_analysis.R                           # processa e gera o relatório
+Rscript tests/test_pipeline.R                    # auditoria das etapas
+```
 
 ## Com dados reais (chave opcional)
 
@@ -106,12 +124,17 @@ info.md                 ponto de retomada da sessão de estudos
 ## Segurança
 
 - Nenhuma credencial é versionada: `.Renviron`, `.Rhistory`, chaves `*.json` de
-  conta de serviço e dados gerados estão no `.gitignore`.
+  conta de serviço, notas de OAuth e dados gerados estão no `.gitignore`.
+- Use sempre o **ID do projeto** (`apidevbase`), nunca o número de 12 dígitos.
+  O login do `gcloud` grava a credencial ADC fora do repositório.
 - O ID de billing é **opcional** e vai somente no `.Renviron` local (use o
   modelo `.Renviron.example`). O código lê com `Sys.getenv("GCP_BILLING_ID")`;
   sem ele, usa cache local ou dados mock.
 - O ID exposto no script original foi removido junto com o arquivo. Se ele já
   esteve em um repositório público, **revoque/rotacione o projeto no Google
   Cloud** — apagar do git não desfaz vazamento anterior.
+- ⚠️ Um client secret do Google esteve em `Cliente OAuth criado.md`. O arquivo
+  está ignorado, mas a credencial deve ser **revogada/rotacionada** no Console;
+  ela não é necessária para o fluxo de `gcloud auth application-default login`.
 - Antes de cada commit: `git status` + uma busca por números de 12 dígitos e
   por `GCP_BILLING_ID=`.

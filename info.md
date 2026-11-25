@@ -350,3 +350,6 @@ git status
 - Criado `script/limpar_e_comecar_do_zero.ps1`: apaga o conteúdo de `data/raw`,
   `data/processed` e `data/reports`, preserva os `.gitkeep`, funciona de qualquer
   diretório e aceita `-WhatIf` para simular. Testado nos dois modos.
+- README atualizado com o estado limpo do ambiente, o fluxo completo
+  (limpar → buscar origem → processar → testar) e o lembrete de rotação do
+  client secret.
